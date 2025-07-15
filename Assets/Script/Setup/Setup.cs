@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Setup
-{
-}
 public class Tags
 {
     public const string PLAYER_TAG = "Player";
@@ -22,4 +19,8 @@ public class AnimatorParams
     public const string DEF = "Def";
 
     public const string KNOCEDOUT = "KnockedOut";
+}
+public class ConstantNames
+{
+    public const string ENEMYFLOWINGHEARTHBAR = "HealthBarCanvas";
 }

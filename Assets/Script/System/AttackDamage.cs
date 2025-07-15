@@ -24,7 +24,10 @@ public class AttackDamage : MonoBehaviour
             foreach(Collider hit in hits)
             {
                 print(GetRootParentName(gameObject) + " hit " + layer.value + " name "+hit.name);
-                hit.GetComponent<HealthScript>().ApplyDamage(damage);
+                if (!hit.GetComponent<HealthScript>().IsCharDead())
+                {
+                    hit.GetComponent<HealthScript>().ApplyDamage(damage);
+                }
             }
             
         }

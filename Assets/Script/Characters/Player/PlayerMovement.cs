@@ -31,20 +31,29 @@ public class PlayerMovement : MonoBehaviour
     public void RotateTowardEnemy()
     {
         GameObject[] enemys = GameObject.FindGameObjectsWithTag(Tags.ENEMY_TAG);
-        int nerestIndex = 0;
+        int nearestIndex = -1;
+        float nearestValueDistance = 0f;
         for (int i = 0; i < enemys.Length; i++)
         {
-            if (Vector3.Distance(enemys[nerestIndex].transform.position, transform.position) >= Vector3.Distance(enemys[i].transform.position, transform.position))
+            HealthScript tempHC = enemys[i].GetComponent<HealthScript>();
+            if (tempHC != null && !tempHC.IsCharDead())
             {
-                nerestIndex = i;
+                if (nearestValueDistance <= Vector3.Distance(enemys[i].transform.position, transform.position))
+                {
+                    nearestIndex = i;
+                    nearestValueDistance = Vector3.Distance(enemys[i].transform.position, transform.position);
+                }
             }
         }
-        //transform.LookAt(enemys[nerestIndex].transform.position);
-        Vector3 direction = enemys[nerestIndex].transform.position - transform.position;
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        if (nearestIndex != -1)
+        {
+            //transform.LookAt(enemys[nerestIndex].transform.position);
+            Vector3 direction = enemys[nearestIndex].transform.position - transform.position;
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
 
-        // Smoothly rotate towards the target rotation
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            // Smoothly rotate towards the target rotation
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
     }
     public void Move()
     {

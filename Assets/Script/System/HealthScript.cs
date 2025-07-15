@@ -10,7 +10,7 @@ public class HealthScript : MonoBehaviour
     public float health = 100f;
     private float fullHealth;
     CharAnimations charAnim;
-    public bool charDead;
+    private bool charDead;
     private bool isPlayer;
     [SerializeField]
     private Image heath_UI;
@@ -43,11 +43,15 @@ public class HealthScript : MonoBehaviour
             {
                 GetComponent<EnemyController>().enabled = false;
                 GetComponent<NavMeshAgent>().enabled = false;
+                transform.Find(ConstantNames.ENEMYFLOWINGHEARTHBAR).gameObject.SetActive(false);
             }
 
         }
     }
-
+    public bool IsCharDead()
+    {
+        return charDead;
+    }
     //private string DieAnimation()
     //{
      //   charAnim.Died();

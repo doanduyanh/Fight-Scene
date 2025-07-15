@@ -3535,6 +3535,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1587122105, guid: 90e35e4de745d5d458cc9bb7314a64db, type: 3}
+      propertyPath: m_Name
+      value: HealthBarCanvas
+      objectReference: {fileID: 0}
     - target: {fileID: 1587122109, guid: 90e35e4de745d5d458cc9bb7314a64db, type: 3}
       propertyPath: m_Camera
       value: 
