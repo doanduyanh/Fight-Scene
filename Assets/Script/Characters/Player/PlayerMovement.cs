@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private CharacterController controller;
+    private UnityEngine.CharacterController controller;
     private InputManager inputManager;
     private CharAnimations charAnim;
     public float rotationSpeed = 90f;
@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        controller = GetComponent<CharacterController>();
+        controller = GetComponent<UnityEngine.CharacterController>();
         charAnim = GetComponent<CharAnimations>();
         inputManager = InputManager.Instance;
     }
@@ -31,14 +31,19 @@ public class PlayerMovement : MonoBehaviour
     public void RotateTowardEnemy()
     {
         GameObject[] enemys = GameObject.FindGameObjectsWithTag(Tags.ENEMY_TAG);
+        if (enemys.Length==0)
+        {
+            return;
+        }
+            
         int nearestIndex = -1;
-        float nearestValueDistance = 0f;
+        float nearestValueDistance = Vector3.Distance(enemys[0].transform.position, transform.position);
         for (int i = 0; i < enemys.Length; i++)
         {
             HealthScript tempHC = enemys[i].GetComponent<HealthScript>();
             if (tempHC != null && !tempHC.IsCharDead())
             {
-                if (nearestValueDistance <= Vector3.Distance(enemys[i].transform.position, transform.position))
+                if (nearestValueDistance >= Vector3.Distance(enemys[i].transform.position, transform.position))
                 {
                     nearestIndex = i;
                     nearestValueDistance = Vector3.Distance(enemys[i].transform.position, transform.position);

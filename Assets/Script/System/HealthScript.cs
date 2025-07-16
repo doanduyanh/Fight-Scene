@@ -14,8 +14,7 @@ public class HealthScript : MonoBehaviour
     [SerializeField]
     private Image heath_UI;
     private CharacterBase charBase;
-    public event Action OnEnemyDeath;
-    public event Action OnPlayerDeath;
+    public event Action OnDeath;
 
     // Start is called before the first frame update
     void Start()
@@ -60,31 +59,30 @@ public class HealthScript : MonoBehaviour
                 {
                     foreach(GameObject enemy in enemys)
                     {
-                        enemy.GetComponent<EnemyController>().enabled = false;
+                        enemy.GetComponent<CharacterController>().enabled = false;
                     }
                 }
             }
             else
             {
-                GetComponent<EnemyController>().enabled = false;
+                GetComponent<CharacterController>().enabled = false;
                 GetComponent<NavMeshAgent>().enabled = false;
-                transform.Find(ConstantNames.ENEMYFLOWINGHEARTHBAR).gameObject.SetActive(false);
+                if(transform.Find(ConstantNames.ENEMYFLOWINGHEARTHBAR) != null)
+                {
+                    transform.Find(ConstantNames.ENEMYFLOWINGHEARTHBAR).gameObject.SetActive(false);
+                }
+                    
             }
 
         }
     }
     public void DeadAnimationDone()
     {
-        if (OnEnemyDeath != null && !isPlayer)
+        if (OnDeath != null)
         {
-            Destroy(gameObject);
-            OnEnemyDeath.Invoke();
+            OnDeath.Invoke();
         }
-        if (OnPlayerDeath != null && isPlayer)
-        {
-            Destroy(gameObject);
-            OnPlayerDeath.Invoke();
-        }
+        Destroy(gameObject);
     }
     public bool IsCharDead()
     {

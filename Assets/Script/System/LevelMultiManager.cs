@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class LevelMultiManager : MonoBehaviour
 {
-    //public static LevelManager instance;
     public int level;
     public GameObject[] spawnPoint;
     public GameObject playerSpawnPoint;
@@ -45,13 +44,13 @@ public class LevelMultiManager : MonoBehaviour
         {
             CharGenerator charGen = new CharGenerator();
             GameObject newCharacter = Instantiate(enemyPrefabs[enemyLevel], spawnPoint[i].transform.position, spawnPoint[i].transform.rotation);
-            EnemyController enemyController = newCharacter.GetComponent<EnemyController>();
+            CharacterController enemyController = newCharacter.GetComponent<CharacterController>();
             CharStructure charGened = charGen.GenerateEnemyByWeight(level/enemyNum);
             enemyController.updateValue(charGened);
             HealthScript enemyHealth = newCharacter.GetComponent<HealthScript>();
             if (enemyHealth != null)
             {
-                enemyHealth.OnEnemyDeath += HandleEnemyDeath;
+                enemyHealth.OnDeath += HandleEnemyDeath;
             }
 
         }
@@ -102,7 +101,7 @@ public class LevelMultiManager : MonoBehaviour
         playerHealth.playerReset();
         if (playerHealth != null)
         {
-            playerHealth.OnPlayerDeath += HandlePlayerDeath;
+            playerHealth.OnDeath += HandlePlayerDeath;
         }
     }
 }

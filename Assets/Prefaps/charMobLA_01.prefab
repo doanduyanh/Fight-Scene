@@ -314,7 +314,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 320
   radius: 0.2
   skillDamageMultipler: 2
 --- !u!1 &1801316421
@@ -363,7 +363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 320
   radius: 0.2
   skillDamageMultipler: 1
 --- !u!1 &215447887438631759
@@ -2085,7 +2085,7 @@ Transform:
   - {fileID: 6580781081274866110}
   - {fileID: 339538377}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 106.626, z: 0}
 --- !u!95 &4011448402002872400
 Animator:

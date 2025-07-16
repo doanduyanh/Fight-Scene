@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ActionInput : CharacterBase
 {
-    private CharacterController controller;
+    private UnityEngine.CharacterController controller;
     private InputManager inputManager;
     private CharAnimations charAnim;
 
@@ -18,7 +18,7 @@ public class ActionInput : CharacterBase
     // Start is called before the first frame update
     void Start()
     {
-        controller = GetComponent<CharacterController>();
+        controller = GetComponent<UnityEngine.CharacterController>();
         charAnim = GetComponent<CharAnimations>();
         inputManager = InputManager.Instance;
         DefSubscribe();

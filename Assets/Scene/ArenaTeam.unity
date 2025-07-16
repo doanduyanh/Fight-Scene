@@ -2316,7 +2316,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2124224235}
-  - component: {fileID: 2124224234}
   - component: {fileID: 2124224236}
   m_Layer: 0
   m_Name: LevelManager
@@ -2325,30 +2324,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2124224234
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2124224233}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70a8e105e7d69c443929cd059c6f46f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  level: 1
-  spawnPoint:
-  - {fileID: 1990321889}
-  - {fileID: 1142529436}
-  - {fileID: 340444100}
-  playerSpawnPoint: {fileID: 1368390000}
-  player: {fileID: 1585672412}
-  enemyPrefabs:
-  - {fileID: 7638240660868106384, guid: 1e635e2814f702b4ca86cc10ee2a3085, type: 3}
-  - {fileID: 5365478663248789192, guid: 90e35e4de745d5d458cc9bb7314a64db, type: 3}
-  levelText: {fileID: 1408875250}
-  winLoseText: {fileID: 1050187246}
 --- !u!4 &2124224235
 Transform:
   m_ObjectHideFlags: 0
@@ -2380,18 +2355,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce573ae2037efe8488772ec5938e2d8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 0
-  spawnPoint:
-  - {fileID: 1990321889}
-  - {fileID: 1142529436}
-  - {fileID: 340444100}
+  level: 1
   playerSpawnPoint: {fileID: 1368390000}
   player: {fileID: 1585672412}
   enemyPrefabs:
   - {fileID: 7638240660868106384, guid: 1e635e2814f702b4ca86cc10ee2a3085, type: 3}
   - {fileID: 5365478663248789192, guid: 90e35e4de745d5d458cc9bb7314a64db, type: 3}
+  alliesPrefabs: {fileID: 1616832065095213754, guid: 0e7e902cf153c7643abb6cd2e706caf4, type: 3}
   levelText: {fileID: 1408875250}
   winLoseText: {fileID: 1050187246}
+  minZ: -3.5
+  maxZ: 4.2
+  minX: -4
+  maxX: 3.9
 --- !u!1001 &2139353022
 PrefabInstance:
   m_ObjectHideFlags: 0

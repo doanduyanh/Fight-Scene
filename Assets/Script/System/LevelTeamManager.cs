@@ -6,15 +6,22 @@ using UnityEngine.SceneManagement;
 
 public class LevelTeamManager : MonoBehaviour
 {
-    //public static LevelManager instance;
     public int level;
-    public GameObject[] spawnPoint;
     public GameObject playerSpawnPoint;
     public GameObject player;
     public GameObject[] enemyPrefabs;
+    public GameObject alliesPrefabs;
     public Text levelText;
     public Text winLoseText;
     private int enemyLeft;
+
+    public float minZ = -3.5f;
+    public float maxZ = 4.2f;
+    public float minX = -4f;
+    public float maxX = 3.9f;
+
+
+
 
     private bool win;
     // Start is called before the first frame update
@@ -38,21 +45,28 @@ public class LevelTeamManager : MonoBehaviour
     }
     void GenerateLevel()
     {
-        int enemyNum = level < 5 ? 2 : 3;
+        int enemyNum = level * 3;
         int enemyLevel = level < 5 ? 0 : 1;
 
         enemyLeft = enemyNum;
-        for (int i = 0; i <= enemyNum; i++)
+        for (int i = 0; i < enemyNum; i++)
         {
+            // Generate random position within the specified ranges
+            float randomX = Random.Range(minX, maxX);
+            float randomY = 0.5f;
+            float randomZ = Random.Range(1f, maxZ);
+
+            Vector3 randomPosition = new Vector3(randomX, randomY, randomZ);
+
             CharGenerator charGen = new CharGenerator();
-            GameObject newCharacter = Instantiate(enemyPrefabs[enemyLevel], spawnPoint[i].transform.position, spawnPoint[i].transform.rotation);
-            EnemyController enemyController = newCharacter.GetComponent<EnemyController>();
+            GameObject newCharacter = Instantiate(enemyPrefabs[enemyLevel], randomPosition, Quaternion.identity);
+            CharacterController enemyController = newCharacter.GetComponent<CharacterController>();
             CharStructure charGened = charGen.GenerateEnemyByWeight(level / enemyNum);
             enemyController.updateValue(charGened);
             HealthScript enemyHealth = newCharacter.GetComponent<HealthScript>();
             if (enemyHealth != null)
             {
-                enemyHealth.OnEnemyDeath += HandleEnemyDeath;
+                enemyHealth.OnDeath += HandleEnemyDeath;
             }
 
         }
@@ -92,18 +106,34 @@ public class LevelTeamManager : MonoBehaviour
     }
     void ReGeneratePlayer()
     {
-        /*if(GameObject.FindGameObjectWithTag(Tags.PLAYER_TAG) != null)
+
+        int alliesNum = level * 3 - 1;
+
+        for (int i = 0; i < alliesNum; i++)
         {
-            Destroy(GameObject.FindGameObjectWithTag(Tags.PLAYER_TAG));
+            // Generate random position within the specified ranges
+            float randomX = Random.Range(minX, maxX);
+            float randomY = 0.5f;
+            float randomZ = Random.Range(minZ, -1f);
+
+            Vector3 randomPosition = new Vector3(randomX, randomY, randomZ);
+
+            CharGenerator charGen = new CharGenerator();
+            GameObject newCharacter = Instantiate(alliesPrefabs, randomPosition, Quaternion.identity);
+            CharacterController enemyController = newCharacter.GetComponent<CharacterController>();
+            CharStructure charGened = charGen.GenerateEnemyByWeight(level / alliesNum);
+            enemyController.updateValue(charGened);
+
         }
-        Instantiate(playerPrefab, playerSpawnPoint.transform.position, playerSpawnPoint.transform.rotation);*/
+
+
         HealthScript playerHealth = player.GetComponent<HealthScript>();
         player.transform.position = playerSpawnPoint.transform.position;
         player.transform.rotation = Quaternion.identity;
         playerHealth.playerReset();
         if (playerHealth != null)
         {
-            playerHealth.OnPlayerDeath += HandlePlayerDeath;
+            playerHealth.OnDeath += HandlePlayerDeath;
         }
     }
 }
