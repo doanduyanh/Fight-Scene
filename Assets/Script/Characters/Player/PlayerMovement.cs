@@ -52,7 +52,12 @@ public class PlayerMovement : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(direction);
 
             // Smoothly rotate towards the target rotation
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            Quaternion newRotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+            Vector3 euler = newRotation.eulerAngles;
+            euler.x = 0;
+            euler.z = 0;
+            transform.rotation = Quaternion.Euler(euler);
         }
     }
     public void Move()

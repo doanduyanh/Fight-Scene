@@ -48,7 +48,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   radius: 0.2
-  damage: 15
+  skillDamageMultipler: 1
 --- !u!1 &67938410
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 1587122107}
   - component: {fileID: 1587122110}
   m_Layer: 5
-  m_Name: Canvas (1)
+  m_Name: HealthBarCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -365,7 +365,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   radius: 0.2
-  damage: 25
+  skillDamageMultipler: 2
 --- !u!1 &150365259982362821
 GameObject:
   m_ObjectHideFlags: 0
@@ -1261,6 +1261,8 @@ MonoBehaviour:
     animationTrigger: AttackBody
     attackPoints:
     - {fileID: 2128749440}
+  damage: 1
+  health: 100
   attackPoints:
   - {fileID: 18800443}
   - {fileID: 2128749440}
@@ -1269,6 +1271,7 @@ MonoBehaviour:
   chaseAfterAttackDistance: 1
   rotationSpeed: 90
   attackDelay: 3
+  attackAnimationSpeed: 1
 --- !u!195 &896229461
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1303,8 +1306,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23bd669fe52b7dc44909eeeabedabb42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 150
-  charDead: 0
   heath_UI: {fileID: 67938412}
 --- !u!1 &5984725720809369378
 GameObject:

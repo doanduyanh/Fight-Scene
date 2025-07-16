@@ -17,6 +17,8 @@ public class CharacterBase : MonoBehaviour
 
 
     public List<AttackPattern> attackPatterns;
+    public float damage = 1f;
+    public float health = 100f;
 
     public void ActivateAttackPoints()
     {

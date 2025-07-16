@@ -6,7 +6,7 @@ public class AttackDamage : MonoBehaviour
 {
     public LayerMask layer;
     public float radius = 0.2f;
-    public float damage = 1f;
+    public float skillDamageMultipler;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,16 +23,16 @@ public class AttackDamage : MonoBehaviour
             gameObject.SetActive(false);
             foreach(Collider hit in hits)
             {
-                print(GetRootParentName(gameObject) + " hit " + layer.value + " name "+hit.name);
+                //print(GetRootParentName(gameObject) + " hit " + layer.value + " name "+hit.name);
                 if (!hit.GetComponent<HealthScript>().IsCharDead())
                 {
-                    hit.GetComponent<HealthScript>().ApplyDamage(damage);
+                    hit.GetComponent<HealthScript>().ApplyDamage(GetRootParentObj(gameObject).GetComponent<CharacterBase>().damage* skillDamageMultipler);
                 }
             }
             
         }
     }
-    string GetRootParentName(GameObject obj)
+    GameObject GetRootParentObj(GameObject obj)
     {
         Transform currentTransform = obj.transform;
 
@@ -41,6 +41,6 @@ public class AttackDamage : MonoBehaviour
             currentTransform = currentTransform.parent;
         }
 
-        return currentTransform.name;
+        return currentTransform.gameObject;
     }
 }

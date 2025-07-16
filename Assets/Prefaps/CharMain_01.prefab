@@ -48,7 +48,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   radius: 0.2
-  damage: 10
+  skillDamageMultipler: 1
 --- !u!1 &818756860
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,7 +213,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   radius: 0.2
-  damage: 20
+  skillDamageMultipler: 2
 --- !u!1 &245466873440787844
 GameObject:
   m_ObjectHideFlags: 0
@@ -502,6 +502,8 @@ MonoBehaviour:
     animationTrigger: AttackBody
     attackPoints:
     - {fileID: 1446378212}
+  damage: 10
+  health: 100
 --- !u!114 &7301926084501387506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -514,8 +516,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23bd669fe52b7dc44909eeeabedabb42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  charDead: 0
   heath_UI: {fileID: 0}
 --- !u!1 &1778481602052119981
 GameObject:

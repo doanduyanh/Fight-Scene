@@ -7,21 +7,46 @@ using UnityEngine.UI;
 
 public class HealthScript : MonoBehaviour
 {
-    public float health = 100f;
     private float fullHealth;
     CharAnimations charAnim;
     private bool charDead;
     private bool isPlayer;
     [SerializeField]
     private Image heath_UI;
+    private CharacterBase charBase;
+    public event Action OnEnemyDeath;
+    public event Action OnPlayerDeath;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        charAnim = GetComponent<CharAnimations>();
+        charBase = GetComponent<CharacterBase>();
+        isPlayer = gameObject.CompareTag(Tags.PLAYER_TAG);
+        fullHealth = charBase.health;
+    }
+    public void playerReset()
+    {
+        if (isPlayer)
+        {
+            charBase.health = fullHealth;
+            heath_UI.fillAmount = charBase.health / fullHealth;
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
     public void ApplyDamage(float damage)
     {
-        health -= damage;
+        charBase.health -= damage;
         if(heath_UI != null)
         {
-            heath_UI.fillAmount = health / fullHealth;
+            heath_UI.fillAmount = charBase.health / fullHealth;
         }
-        if (health <= 0)
+        if (charBase.health <= 0)
         {
             print(GetRootParentName(gameObject) + " died");
             charAnim.Died();
@@ -48,6 +73,19 @@ public class HealthScript : MonoBehaviour
 
         }
     }
+    public void DeadAnimationDone()
+    {
+        if (OnEnemyDeath != null && !isPlayer)
+        {
+            Destroy(gameObject);
+            OnEnemyDeath.Invoke();
+        }
+        if (OnPlayerDeath != null && isPlayer)
+        {
+            Destroy(gameObject);
+            OnPlayerDeath.Invoke();
+        }
+    }
     public bool IsCharDead()
     {
         return charDead;
@@ -67,18 +105,5 @@ public class HealthScript : MonoBehaviour
         }
 
         return currentTransform.name;
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        charAnim = GetComponent<CharAnimations>();
-        isPlayer = gameObject.CompareTag(Tags.PLAYER_TAG);
-        fullHealth = health;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

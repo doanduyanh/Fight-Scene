@@ -21,8 +21,20 @@ public class EnemyController : CharacterBase
     public float moveSpeed = 3f;
     public float attackDistance = 1.5f;
     public float chaseAfterAttackDistance = 1f;
-    public float rotationSpeed = 10f;
+    public float rotationSpeed = 90f;
     public float attackDelay = 3f;
+    public float attackAnimationSpeed = 1f;
+
+    public void updateValue(CharStructure charStructure)
+    {
+        health = charStructure.health;
+        damage = charStructure.damage;
+        attackDelay = charStructure.attackDelay;
+        attackAnimationSpeed = charStructure.attackSpeed;
+        moveSpeed = charStructure.movementSpeed;
+
+        
+    }
 
     private float waitTimer;
     private bool isAttacking = false;
@@ -35,16 +47,20 @@ public class EnemyController : CharacterBase
         enemyAnimator = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
 
-        playerTarget = GameObject.FindGameObjectWithTag(Tags.PLAYER_TAG).GetComponent<Transform>();
+        
 
         enemyState = EnemyState.CHASE;
         waitTimer = attackDelay;
-
+        enemyAnimator.speed = attackAnimationSpeed;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (playerTarget == null)
+        {
+            playerTarget = GameObject.FindGameObjectWithTag(Tags.PLAYER_TAG).GetComponent<Transform>();
+        }
         switch (enemyState)
         {
             case EnemyState.CHASE:
