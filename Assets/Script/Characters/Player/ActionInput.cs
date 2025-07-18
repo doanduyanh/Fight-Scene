@@ -10,10 +10,10 @@ public class ActionInput : CharacterBase
     private CharAnimations charAnim;
 
 
-    ~ActionInput()
+    /*~ActionInput()
     {
         DefUnsubscribe();
-    }
+    }*/
 
     // Start is called before the first frame update
     void Start()
@@ -21,10 +21,11 @@ public class ActionInput : CharacterBase
         controller = GetComponent<UnityEngine.CharacterController>();
         charAnim = GetComponent<CharAnimations>();
         inputManager = InputManager.Instance;
-        DefSubscribe();
+        //DefSubscribe();
 
     }
-    public void DefUnsubscribe()
+    //Didn't make the final cut 
+    /*public void DefUnsubscribe()
     {
         inputManager.UnsubPlayerDefOff(DefOff);
         inputManager.UnsubPlayerDefOn(DefOn);
@@ -33,7 +34,7 @@ public class ActionInput : CharacterBase
     {
         inputManager.SubPlayerDefOff(DefOff);
         inputManager.SubPlayerDefOn(DefOn);
-    }
+    }*/
 
     // Update is called once per frame
     void Update()
@@ -62,7 +63,7 @@ public class ActionInput : CharacterBase
         }
     }
 
-    private void DefOn(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    /*private void DefOn(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
         charAnim.DefOn();
     }
@@ -70,7 +71,7 @@ public class ActionInput : CharacterBase
     private void DefOff(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
         charAnim.DefOff();
-    }
+    }*/
 
 
 }

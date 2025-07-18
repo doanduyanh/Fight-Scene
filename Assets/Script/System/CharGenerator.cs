@@ -51,15 +51,15 @@ public class CharGenerator
 
 
 
-        ////////Char cooking algorithm:base stat + Weitgh Distribute * Difficulti multiplier * PerWeightCharStatGrow///////
-        for (int i = 1; i< weight; i++)
+        ////////Char cooking algorithm:base stat + Weitgh Distribute (level * 2 for enough variaty of noticeable stat) * Difficulti multiplier(Easy/Normal/Hard) * PerWeightCharStatGrow///////
+        for (int i = 1; i< weight*2; i++)
         {
-            int improving = Random.Range(0, 4);
+            int improving = Random.Range(0, 5);
             weightDistribute[improving] += 1;
         }
         for (int i = 0; i< charCookingAsList.Count; i++)
         {
-            charCookingAsList[i] += weightDistribute[i] * Setting.DIFFMULTIPLIER * perWeightCharStatGrow[i];
+            charCookingAsList[i] += weightDistribute[i] * perWeightCharStatGrow[i];
         }
         charCooking.CharCookingDone(charCookingAsList);
         return charCooking;

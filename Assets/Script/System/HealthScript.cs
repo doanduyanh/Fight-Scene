@@ -24,7 +24,7 @@ public class HealthScript : MonoBehaviour
         isPlayer = gameObject.CompareTag(Tags.PLAYER_TAG);
         fullHealth = charBase.health;
     }
-    public void playerReset()
+    public void PlayerReset()
     {
         if (isPlayer)
         {
@@ -33,11 +33,6 @@ public class HealthScript : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     public void ApplyDamage(float damage)
     {
         charBase.health -= damage;
@@ -47,7 +42,7 @@ public class HealthScript : MonoBehaviour
         }
         if (charBase.health <= 0)
         {
-            print(GetRootParentName(gameObject) + " died");
+            //print(GetRootParentName(gameObject) + " died");
             charAnim.Died();
             charDead = true;
             if (isPlayer)
@@ -82,16 +77,15 @@ public class HealthScript : MonoBehaviour
         {
             OnDeath.Invoke();
         }
-        Destroy(gameObject);
+        if(!isPlayer)
+        {
+            Destroy(gameObject);
+        }
     }
     public bool IsCharDead()
     {
         return charDead;
     }
-    //private string DieAnimation()
-    //{
-     //   charAnim.Died();
-   // }
 
     string GetRootParentName(GameObject obj)
     {

@@ -33,17 +33,22 @@ public class PlayerMovement : MonoBehaviour
         GameObject[] enemys = GameObject.FindGameObjectsWithTag(Tags.ENEMY_TAG);
         if (enemys.Length==0)
         {
+            charAnim.Win(true);
             return;
         }
-            
+        else
+        {
+            charAnim.Win(false);
+        }
+
         int nearestIndex = -1;
-        float nearestValueDistance = Vector3.Distance(enemys[0].transform.position, transform.position);
+        float nearestValueDistance = -1;
         for (int i = 0; i < enemys.Length; i++)
         {
             HealthScript tempHC = enemys[i].GetComponent<HealthScript>();
             if (tempHC != null && !tempHC.IsCharDead())
             {
-                if (nearestValueDistance >= Vector3.Distance(enemys[i].transform.position, transform.position))
+                if (nearestValueDistance >= Vector3.Distance(enemys[i].transform.position, transform.position) || nearestValueDistance == -1)
                 {
                     nearestIndex = i;
                     nearestValueDistance = Vector3.Distance(enemys[i].transform.position, transform.position);
@@ -69,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 movement = new(0, 0); 
         Vector3 move = new(0, 0, 0);
-        if (!charAnim.IsDefing()) //wont allow to move if defending
+        //if (!charAnim.IsDefing()) //wont allow to move if defending //cut this feature for difficuty and time scope
         {
             movement = inputManager.GetPlayerMovement();
             move = transform.forward * movement.y + transform.right * movement.x;

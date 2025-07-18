@@ -74,7 +74,7 @@ public class CharacterController : CharacterBase
         }
         if (!characterAnim.IsDoingAttackAndStuff())
         {
-            RotateTowardPlayer();
+            RotateTowardTarget();
         }
 
     }
@@ -94,17 +94,22 @@ public class CharacterController : CharacterBase
         }
         if(candidates.Count == 0)
         {
+            characterAnim.Win(true);
             return null;
+        }
+        else
+        {
+            characterAnim.Win(false);
         }
 
         int nearestIndex = -1;
-        float nearestValueDistance = Vector3.Distance(candidates[0].transform.position, transform.position);
+        float nearestValueDistance = -1; // Vector3.Distance(candidates[0].transform.position, transform.position);
         for (int i = 0; i < candidates.Count; i++)
         {
             HealthScript tempHC = candidates[i].GetComponent<HealthScript>();
             if (tempHC != null && !tempHC.IsCharDead())
             {
-                if (nearestValueDistance >= Vector3.Distance(candidates[i].transform.position, transform.position))
+                if (nearestValueDistance >= Vector3.Distance(candidates[i].transform.position, transform.position) || nearestValueDistance == -1)
                 {
                     nearestIndex = i;
                     nearestValueDistance = Vector3.Distance(candidates[i].transform.position, transform.position);
@@ -147,8 +152,8 @@ public class CharacterController : CharacterBase
         Vector3 directionToTarget = (target.position - startPos).normalized;
         Vector3 stopPoint = target.position - directionToTarget * pattern.moveDistance;
 
-        float startAttackTime = Time.time + 0.4f;///// sometime AI stuck when they can't move to stopPoint @@
-        while (Vector3.Distance(transform.position, stopPoint) > 0.1f || startAttackTime>=Time.time)
+        float skipNavigateThreshold = Time.time + 0.4f;///// sometime navmesh AI stuck when they can't move to stopPoint @@
+        while (Vector3.Distance(transform.position, stopPoint) > 0.1f || skipNavigateThreshold >= Time.time)
         {
             transform.position = Vector3.MoveTowards(transform.position, stopPoint, Time.deltaTime * moveSpeed);
             yield return null;
@@ -159,8 +164,8 @@ public class CharacterController : CharacterBase
         characterAnim.ActionAnimationStart();
         yield return new WaitUntil(() => !characterAnim.IsDoingAttackAndStuff());
 
-        float startBackTime = Time.time + 0.4f;///// sometime AI stuck when they can't move to stopPoint @@
-        while (Vector3.Distance(transform.position, startPos) > .1f || startBackTime>= Time.time)
+        skipNavigateThreshold = Time.time + 0.4f;///// sometime navmesh AI stuck when they can't move to stopPoint @@
+        while (Vector3.Distance(transform.position, startPos) > .1f || skipNavigateThreshold >= Time.time)
         {
             transform.position = Vector3.Lerp(transform.position, startPos, Time.deltaTime * moveSpeed);
             yield return null;
@@ -172,7 +177,7 @@ public class CharacterController : CharacterBase
         isAttacking = false;
     }
 
-    public void RotateTowardPlayer()
+    public void RotateTowardTarget()
     {
         GameObject enemy = target.gameObject;
         

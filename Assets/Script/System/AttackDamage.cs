@@ -7,11 +7,6 @@ public class AttackDamage : MonoBehaviour
     public LayerMask layer;
     public float radius = 0.2f;
     public float skillDamageMultipler;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()

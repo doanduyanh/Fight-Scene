@@ -14,17 +14,19 @@ public class CharAnimations : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    // Start is called before the first frame update
     public void Walk(bool walking)
     {
         anim.SetBool(AnimatorParams.WALKING, walking);
+    }   
+    public void Win(bool win)
+    {
+        anim.SetBool(AnimatorParams.WIN, win);
     }    
     public void WalkingDirection(string directionParam, float direction)
     {
         anim.SetFloat(directionParam, direction);
     }
     
-    // Start is called before the first frame update
     public void AttackHead()
     {
         if (!inAction)
